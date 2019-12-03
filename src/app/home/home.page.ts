@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomePage {
   DANGEROUS_LVL = 200;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastController: ToastController) {
     this.reload();
   }
 
@@ -32,10 +33,12 @@ export class HomePage {
           this.isLoading = false;
           this.apiData = response;
           this.level = this.aqiLevel();
+          this.displayToast('success', 'Data loaded');
         },
         error => {
           console.log(error);
           this.isLoading = false;
+          this.displayToast('danger', error.message);
         }
       );
   }
@@ -50,4 +53,14 @@ export class HomePage {
     else return 'dangerous';
   }
 
+
+  async displayToast(color: string, message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'top'
+    });
+    toast.present();
+  }
 }
