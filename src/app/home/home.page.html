@@ -1,20 +1,20 @@
-<div class="page good-page">
+<div class="page" [ngClass]="level + '-page'">
   <div class="width-restriction">
-    <div class="level-desc">Good</div>
+    <div class="level-desc">{{ level | titlecase }}</div>
 
-      <ion-avatar class="avatar good-border">
+      <ion-avatar class="avatar" [ngClass]="level + '-border'">
         <ion-img class="image" [src]="'../assets/bunny-good.png'"></ion-img>
       </ion-avatar>
 
       <div class="aqi-div">
-        37
+        {{apiData.data?.aqi || '?'}}
       </div>
 
       <div class="city-desc">
-        Krakow, Lojasiewicza 6
+        {{apiData.data?.city?.name || 'Fetching data'}}
       </div>
 
-      <button class="reload-btn">
+      <button class="reload-btn" (click)="reload()">
         Reload
       </button>
   </div>
