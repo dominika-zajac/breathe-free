@@ -1,5 +1,7 @@
 {
   "name": "breathe-free",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
